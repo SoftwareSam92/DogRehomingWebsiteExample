@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ dog[1] }}</h1>
+<img src="{{ dog[4] }}" class="img-fluid mb-3" alt="{{ dog[1] }}">
+<p>{{ dog[2] }}</p>
+<p><strong>Adoption Fee: ${{ dog[3] }}</strong></p>
+<a href="/" class="btn btn-secondary">Back to List</a>
+{% if current_user.is_authenticated %}
+    <a href="{{ url_for('add_to_basket', dog_id=dog[0]) }}" class="btn btn-success">Add to Basket</a>
+{% endif %}
+{% endblock %}

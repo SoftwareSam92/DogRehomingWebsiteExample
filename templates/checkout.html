@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Checkout Successful</h1>
+<p>Thank you for adopting the following dogs:</p>
+<ul>
+    {% for dog in dogs %}
+    <li>{{ dog[1] }} - ${{ dog[3] }}</li>
+    {% endfor %}
+</ul>
+<p><strong>Total: ${{ total }}</strong></p>
+<p>Your adoption process will begin shortly. We will contact you with next steps.</p>
+<a href="/" class="btn btn-primary">Back to Home</a>
+{% endblock %}

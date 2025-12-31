@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Your Basket</h1>
+{% if dogs %}
+    <div class="row">
+        {% for dog in dogs %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ dog[4] }}" class="card-img-top" alt="{{ dog[1] }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ dog[1] }}</h5>
+                    <p class="card-text">{{ dog[2] }}</p>
+                    <p class="card-text"><strong>Price: ${{ dog[3] }}</strong></p>
+                    <a href="{{ url_for('remove_from_basket', dog_id=dog[0]) }}" class="btn btn-danger">Remove</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <h3>Total: ${{ total }}</h3>
+    <a href="{{ url_for('checkout') }}" class="btn btn-primary">Checkout</a>
+{% else %}
+    <p>Your basket is empty.</p>
+{% endif %}
+<a href="/" class="btn btn-secondary">Back to Dogs</a>
+{% endblock %}

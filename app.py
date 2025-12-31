@@ -21,7 +21,6 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Change this to a random secret key
-DATABASE = 'dogs.db'
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -67,7 +66,7 @@ def get_db():
     """
     db = getattr(g, '_database', None)
     if db is None:
-        db = g._database = sqlite3.connect(DATABASE)
+        db = g._database = sqlite3.connect(app.config.get('DATABASE', 'dogs.db'))
     return db
 
 @app.teardown_appcontext

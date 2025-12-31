@@ -89,6 +89,27 @@ def test_add_to_basket_requires_login(client):
     assert response.status_code == 200
     assert b'Please log in' in response.data or b'login' in response.data.lower()  # Assuming redirect to login
 
+def test_checkout(client):
+    """Test the checkout process."""
+    # Register and login
+    client.post('/register', data={
+        'username': 'testuser',
+        'email': 'test@example.com',
+        'password': 'password123'
+    })
+    client.post('/login', data={
+        'username': 'testuser',
+        'password': 'password123'
+    })
+    # Add dog to basket
+    client.get('/add_to_basket/1')
+    # Checkout
+    response = client.get('/checkout', follow_redirects=True)
+    assert response.status_code == 200
+    assert b'Checkout successful' in response.data
+    assert b'Buddy' in response.data  # Assuming the dog name is displayed
+    assert b'150.0' in response.data  # Assuming the price is displayed
+
 def test_dog_detail(client):
     """Test viewing a specific dog's details."""
     response = client.get('/dog/1')
